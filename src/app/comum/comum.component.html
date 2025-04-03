@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <h2 class="text-center">Gerenciamento de Estacionamento</h2>
+  
+    <!-- Grid de Vagas -->
+    <div class="row">
+      <div class="col-md-4 mb-3" *ngFor="let spot of getFilteredSpots()">
+        <div class="card text-center p-3">
+          <h5 class="card-title">Vaga {{ spot.numero }}</h5>
+          <p>Tipo: {{ spot.tipo }}</p>
+          <p>Valor/hora: R$ {{ spot.valorporhora }}</p>
+          <p [ngClass]="{
+              'text-success': spot.status === 'Disponivel',
+              'text-warning': spot.status === 'Reservada',
+              'text-danger': spot.status === 'Ocupada'
+            }">
+            <strong>{{ spot.status }}</strong>
+          </p>
+  
+          <button *ngIf="spot.status === 'Disponivel'"
+            class="btn btn-primary"
+            (click)="reserveSpot(spot.id)">
+            Reservar
+          </button>
+  
+          <button *ngIf="spot.status === 'Reservada'"
+            class="btn btn-secondary"
+            (click)="releaseSpot(spot.id)">
+            Liberar
+          </button>
+
+          <button *ngIf="spot.status === 'Disponivel'"
+          class="btn btn-secondary"
+          (click)="OcuparSpot(spot.id)">
+          Ocupar
+        </button>
+
+        <button *ngIf="spot.status === 'Ocupada'"
+        class="btn btn-secondary"
+        (click)="DisponiSpot(spot.id)">
+        Disponibilizar
+      </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
